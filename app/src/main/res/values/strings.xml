@@ -14,4 +14,11 @@
     <string name="dummy">Null</string>
     <string name="string_genre">Genre(s): </string>
 
+    <string-array name="main_tabs">
+        <item>Latest</item>
+        <item>Now Playing</item>
+        <item>Popular</item>
+        <item>Top Rated</item>
+        <item>Upcoming</item>
+    </string-array>
 </resources>

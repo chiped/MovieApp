@@ -40,7 +40,7 @@ public class MovieListFragment extends Fragment {
         movieList = new ArrayList<>();
 
         recyclerView = (RecyclerView) view.findViewById(R.id.movie_list_recylerview);
-        layoutManager = new GridLayoutManager(getActivity(), 1);
+        layoutManager = new GridLayoutManager(getActivity(), getResources().getInteger(R.integer.movie_list_columns));
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(new MovieListAdapter());
 

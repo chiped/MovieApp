@@ -9,6 +9,7 @@ import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chinmay.movieapp.Constants;
@@ -16,6 +17,8 @@ import com.chinmay.movieapp.Network.NetworkManager;
 import com.chinmay.movieapp.R;
 import com.chinmay.movieapp.model.Movie;
 import com.chinmay.movieapp.model.MovieListResult;
+import com.chinmay.movieapp.utils.HttpUtils;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,22 +75,17 @@ public class MovieListFragment extends Fragment {
     }
 
     public static class MovieRowViewHolder extends RecyclerView.ViewHolder {
-        public TextView titleTextView;
-        public TextView ratingTextView;
-        public TextView releaseDateTextView;
+        TextView titleTextView;
+        TextView ratingTextView;
+        TextView releaseDateTextView;
+        ImageView posterImageView;
 
         public MovieRowViewHolder(View view) {
             super(view);
             titleTextView = (TextView) view.findViewById(R.id.movie_title);
             ratingTextView = (TextView) view.findViewById(R.id.movie_rating);
-            releaseDateTextView= (TextView) view.findViewById(R.id.movie_date);
-        }
-
-        public void bind(Movie movie) {
-            titleTextView.setText(movie.getTitle());
-            ratingTextView.setText(movie.getRating()>0?String.format("%.1f", movie.getRating()):"");
-            CharSequence date = DateFormat.format("dd MMM yyyy", movie.getReleaseDate());
-            releaseDateTextView.setText(date);
+            releaseDateTextView = (TextView) view.findViewById(R.id.movie_date);
+            posterImageView = (ImageView) view.findViewById(R.id.movie_row_poster);
         }
     }
     private class MovieListAdapter extends RecyclerView.Adapter {
@@ -102,8 +100,18 @@ public class MovieListFragment extends Fragment {
         }
 
         @Override
-        public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-            ((MovieRowViewHolder) holder).bind(movieList.get(position));
+        public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
+            MovieRowViewHolder holder = (MovieRowViewHolder) viewHolder;
+            Movie movie = movieList.get(position);
+            holder.titleTextView.setText(movie.getTitle());
+            holder.ratingTextView.setText(movie.getRating()>0?String.format("%.1f", movie.getRating()):"");
+            CharSequence date = DateFormat.format("dd MMM yyyy", movie.getReleaseDate());
+            holder.releaseDateTextView.setText(date);
+            Picasso.with(getActivity())
+                    .load(HttpUtils.getSmallUrl(movie.getPosterPath()))
+                    .error(R.drawable.no_poster)
+                    .placeholder(R.drawable.no_poster)
+                    .into(holder.posterImageView);
         }
 
         @Override

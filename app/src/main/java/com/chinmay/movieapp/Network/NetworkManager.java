@@ -1,4 +1,4 @@
-package com.chinmay.movieapp.Network;
+package com.chinmay.movieapp.network;
 
 import com.chinmay.movieapp.Constants;
 import com.chinmay.movieapp.model.MovieListResult;

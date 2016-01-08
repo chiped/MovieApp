@@ -1,9 +1,8 @@
-package com.chinmay.movieapp.Network;
+package com.chinmay.movieapp.network;
 
 import com.chinmay.movieapp.model.MovieListResult;
 
 import retrofit.Call;
-import retrofit.Callback;
 import retrofit.http.GET;
 import retrofit.http.Path;
 

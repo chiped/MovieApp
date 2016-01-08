@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chinmay.movieapp.Constants;
-import com.chinmay.movieapp.Network.NetworkManager;
+import com.chinmay.movieapp.network.NetworkManager;
 import com.chinmay.movieapp.R;
 import com.chinmay.movieapp.model.Movie;
 import com.chinmay.movieapp.model.MovieListResult;

@@ -21,6 +21,13 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".moviedetails.MovieDetailsActivity"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".main.MainTabActivity" />
+        </activity>
+        <activity
             android:name="com.chinmay.movieapp.MovieItemListActivity"
             android:windowSoftInputMode="stateUnchanged"
             android:parentActivityName=".MovieAppActivity" >

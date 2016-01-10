@@ -12,4 +12,7 @@ public class Constants {
     final public static String LARGE ="/w342";
     final public static String PROFILE = "/w45";
     final public static String[] LIST_TYPE = {"now_playing", "popular", "top_rated", "upcoming"};
+    public static final String PLACEHOLDER_URL = "PLACEHOLDER_URL";
+    public static final String IMAGE_URL = "IMAGE_URL";
+    public static final String MOVIE_EXTRA = "MOVIE";
 }

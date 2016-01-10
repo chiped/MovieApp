@@ -15,7 +15,6 @@ import com.chinmay.movieapp.R;
 import com.chinmay.movieapp.model.Movie;
 import com.chinmay.movieapp.model.MovieListResult;
 import com.chinmay.movieapp.moviedetails.MovieDetailsActivity;
-import com.chinmay.movieapp.moviedetails.MovieDetailsFragment;
 import com.chinmay.movieapp.network.NetworkManager;
 
 import java.util.ArrayList;
@@ -77,7 +76,8 @@ public class MovieListFragment extends Fragment implements MovieListAdapter.Movi
     @Override
     public void onClick(View view, int position) {
         Intent intent = new Intent(getActivity(), MovieDetailsActivity.class);
-        intent.putExtra("MOVIE", movieList.get(position));
+        intent.putExtra(Constants.MOVIE_EXTRA, movieList.get(position));
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
     }
 }

@@ -28,6 +28,13 @@
                 android:value=".main.MainTabActivity" />
         </activity>
         <activity
+            android:name=".moviedetails.ImageActivity"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".moviedetails.MovieDetailsActivity" />
+        </activity>
+        <activity
             android:name="com.chinmay.movieapp.MovieItemListActivity"
             android:windowSoftInputMode="stateUnchanged"
             android:parentActivityName=".MovieAppActivity" >

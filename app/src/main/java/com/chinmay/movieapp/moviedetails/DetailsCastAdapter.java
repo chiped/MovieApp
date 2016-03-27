@@ -53,7 +53,7 @@ public class DetailsCastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         return dataset.size();
     }
 
-    private class CastViewHolder extends RecyclerView.ViewHolder {
+    private static class CastViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView imageView;
         private TextView name;

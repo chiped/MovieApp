@@ -54,12 +54,6 @@ public class MovieDetailsFragment extends Fragment implements IMovieDetailsView 
         presenter.movie = movie;
         presenter.onCreate();
 
-//        setupImageGallery(view);
-//        setupCastGallery(view);
-//
-//        loadImageUrls();
-//        loadCredits();
-
         setupRecyclerView(view);
 
         return view;
@@ -89,36 +83,6 @@ public class MovieDetailsFragment extends Fragment implements IMovieDetailsView 
 //        castAdapter = new DetailsCastAdapter(getActivity(), cast);
 //        castRecylerView.setAdapter(castAdapter);
 //    }
-
-    private void loadImageUrls() {
-        NetworkManager.getInstance().getImageUrls(movie.getId(), new Callback<ImageUrlResult>() {
-
-            @Override
-            public void onResponse(Response<ImageUrlResult> response, Retrofit retrofit) {
-                imageUrls.addAll(response.body().getBackdrops());
-                galleryAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-            }
-        });
-    }
-
-    private void loadCredits() {
-        NetworkManager.getInstance().getCredits(movie.getId(), new Callback<Cast.CreditsResponse>() {
-
-            @Override
-            public void onResponse(Response<Cast.CreditsResponse> response, Retrofit retrofit) {
-                cast.addAll(response.body().cast);
-                castAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-            }
-        });
-    }
 
     public static Fragment getInstance(Movie movie) {
         MovieDetailsFragment fragment = new MovieDetailsFragment();

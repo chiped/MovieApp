@@ -48,7 +48,7 @@ public class DetailsGalleryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         return dataset.size();
     }
 
-    private class GalleryViewHolder extends RecyclerView.ViewHolder {
+    private static class GalleryViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView imageView;
 

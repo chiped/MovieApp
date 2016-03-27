@@ -1,6 +1,7 @@
 package com.chinmay.movieapp.moviedetails;
 
 import android.content.Context;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import com.chinmay.movieapp.R;
 import com.chinmay.movieapp.moviedetails.model.DetailItem;
 import com.chinmay.movieapp.moviedetails.model.ExpandableTextItem;
+import com.chinmay.movieapp.moviedetails.model.HorizontalMovieListItem;
 import com.chinmay.movieapp.moviedetails.model.TextItem;
 import com.ms.square.android.expandabletextview.ExpandableTextView;
 
@@ -18,7 +20,7 @@ import java.util.List;
 /**
  * Created by ChiP on 3/26/2016.
  */
-public class DetailsAdapter extends RecyclerView.Adapter<RecyclerViewViewHolder> {
+public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.RecyclerViewViewHolder> {
 
     private final Context context;
     private final List<DetailItem> dataset;
@@ -41,11 +43,19 @@ public class DetailsAdapter extends RecyclerView.Adapter<RecyclerViewViewHolder>
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.detail_expandable_text_row, parent, false);
                 viewHolder = new ExpandableTextViewHolder(view);
                 break;
-            case HORIZONTAL_LIST:
+            case HORIZONTAL_MOVIE_LIST: //TODO correct layout
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.detail_text_row, parent, false);
                 viewHolder = new TextViewHolder(view);
                 break;
-            case VERTICAL_LIST:
+            case HORIZONTAL_PEOPLE_LIST:
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.detail_list_row, parent, false);
+                viewHolder = new CastListViewHolder(view);
+                break;
+            case HORIZONTAL_IMAGE_LIST:
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.detail_list_row, parent, false);
+                viewHolder = new ImageListViewHolder(view);
+                break;
+            case VERTICAL_REVIEWS_LIST: //TODO correct layout
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.detail_text_row, parent, false);
                 viewHolder = new TextViewHolder(view);
                 break;
@@ -67,46 +77,11 @@ public class DetailsAdapter extends RecyclerView.Adapter<RecyclerViewViewHolder>
     public int getItemViewType(int position) {
         return dataset.get(position).getItemType().getValue();
     }
-}
 
-abstract class RecyclerViewViewHolder<T extends DetailItem> extends RecyclerView.ViewHolder {
-    public RecyclerViewViewHolder(View itemView) {
-        super(itemView);
-    }
-    abstract void bind(T data);
-}
-
-class TextViewHolder extends RecyclerViewViewHolder<TextItem> {
-    private TextView titleTextView;
-    private TextView valueTextView;
-
-    public TextViewHolder(View view) {
-        super(view);
-        titleTextView = (TextView) view.findViewById(R.id.title);
-        valueTextView = (TextView) view.findViewById(R.id.value);
-    }
-
-    @Override
-    void bind(TextItem item) {
-        titleTextView.setText(item.getTitle());
-        valueTextView.setText(item.getValue());
-    }
-
-}
-
-class ExpandableTextViewHolder extends RecyclerViewViewHolder<ExpandableTextItem> {
-    private TextView titleTextView;
-    private ExpandableTextView valueTextView;
-
-    public ExpandableTextViewHolder(View view) {
-        super(view);
-        titleTextView = (TextView) view.findViewById(R.id.title);
-        valueTextView = (ExpandableTextView) view.findViewById(R.id.value);
-    }
-
-    @Override
-    void bind(ExpandableTextItem item) {
-        titleTextView.setText(item.getTitle());
-        valueTextView.setText(item.getValue());
+    public abstract static class RecyclerViewViewHolder<T extends DetailItem> extends RecyclerView.ViewHolder {
+        public RecyclerViewViewHolder(View itemView) {
+            super(itemView);
+        }
+        abstract void bind(T data);
     }
 }

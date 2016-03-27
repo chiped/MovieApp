@@ -10,10 +10,13 @@ public abstract class DetailItem {
     public enum ItemType {
         TEXT(0),
         EXPANDABLE_TEXT(1),
-        HORIZONTAL_LIST(2),
-        VERTICAL_LIST(3);
+        HORIZONTAL_MOVIE_LIST(2),
+        HORIZONTAL_PEOPLE_LIST(3),
+        HORIZONTAL_IMAGE_LIST(4),
+        HORIZONTAL_TEXT_LIST(5),
+        VERTICAL_REVIEWS_LIST(6);
 
-        private static final Map<Integer, ItemType> intToTypeMap = new HashMap<Integer, ItemType>();
+        private static final Map<Integer, ItemType> intToTypeMap = new HashMap<>();
         private final int value;
 
         ItemType(int value) {

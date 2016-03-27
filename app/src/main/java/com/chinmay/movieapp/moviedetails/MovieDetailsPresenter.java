@@ -1,9 +1,13 @@
 package com.chinmay.movieapp.moviedetails;
 
+import com.chinmay.movieapp.model.Cast;
+import com.chinmay.movieapp.model.ImageUrlResult;
 import com.chinmay.movieapp.model.Movie;
 import com.chinmay.movieapp.model.MovieDetail;
 import com.chinmay.movieapp.moviedetails.model.DetailItem;
 import com.chinmay.movieapp.moviedetails.model.ExpandableTextItem;
+import com.chinmay.movieapp.moviedetails.model.HorizontalImageListItem;
+import com.chinmay.movieapp.moviedetails.model.HorizontalPeopleListItem;
 import com.chinmay.movieapp.moviedetails.model.TextItem;
 import com.chinmay.movieapp.network.NetworkManager;
 import com.chinmay.movieapp.utils.StringUtils;
@@ -35,11 +39,45 @@ public class MovieDetailsPresenter {
             public void onResponse(Response<MovieDetail> response, Retrofit retrofit) {
                 processResponse(response.body());
                 movieDetailsView.refreshList();
+                loadImageUrls();
+                loadCredits();
             }
 
             @Override
             public void onFailure(Throwable t) {
 
+            }
+        });
+    }
+
+    private void loadImageUrls() {
+        NetworkManager.getInstance().getImageUrls(movie.getId(), new Callback<ImageUrlResult>() {
+
+            @Override
+            public void onResponse(Response<ImageUrlResult> response, Retrofit retrofit) {
+                if(!Utils.isEmptyOrNull(response.body().getBackdrops())) {
+                    list.add(new HorizontalImageListItem("Image(s):", response.body().getBackdrops()));
+                    movieDetailsView.refreshList();
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+            }
+        });
+    }
+
+    private void loadCredits() {
+        NetworkManager.getInstance().getCredits(movie.getId(), new Callback<Cast.CreditsResponse>() {
+
+            @Override
+            public void onResponse(Response<Cast.CreditsResponse> response, Retrofit retrofit) {
+                list.add(new HorizontalPeopleListItem("Cast:", response.body().cast));
+                movieDetailsView.refreshList();
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
             }
         });
     }
@@ -58,7 +96,7 @@ public class MovieDetailsPresenter {
         }
 
         if(movieDetail.getVoteAverage() != 0) {
-            list.add(new TextItem("Rating:", String.format("%.2f (%d votes)", movieDetail.getVoteAverage(), movieDetail.getVoteCount())));
+            list.add(new TextItem("Rating:", String.format("%.1f (%d votes)", movieDetail.getVoteAverage(), movieDetail.getVoteCount())));
         }
 
         if(!StringUtils.empty(movieDetail.getOverview())) {
@@ -84,8 +122,6 @@ public class MovieDetailsPresenter {
         if(!Utils.isEmptyOrNull(movieDetail.getProductionCompanies())) {
             list.add(new TextItem("Production Company(s):", StringUtils.asStringSeparated(movieDetail.getProductionCompanies(), ", ")));
         }
-
-
     }
 
 }

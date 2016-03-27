@@ -34,23 +34,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".moviedetails.MovieDetailsActivity" />
         </activity>
-        <activity
-            android:name="com.chinmay.movieapp.MovieItemListActivity"
-            android:windowSoftInputMode="stateUnchanged"
-            android:parentActivityName=".MovieAppActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MovieAppActivity" />
-        </activity>
-
-        <activity
-            android:name="com.chinmay.movieapp.MovieItemDetailActivity"
-            android:label="@string/title_movieitem_detail"
-            android:parentActivityName=".MovieItemListActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MovieItemListActivity" />
-        </activity>
     </application>
 
 </manifest>

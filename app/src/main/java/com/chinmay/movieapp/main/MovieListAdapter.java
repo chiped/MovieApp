@@ -42,7 +42,7 @@ public class MovieListAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         MovieRowViewHolder holder = (MovieRowViewHolder) viewHolder;
         Movie movie = movieList.get(position);
-        holder.titleTextView.setText(movie.getTitle());
+        holder.titleTextView.setText(movie.getDisplayTitle());
         holder.ratingTextView.setText(movie.getRating()>0?String.format("%.1f", movie.getRating()):"");
         CharSequence date = DateFormat.format("dd MMM yyyy", movie.getReleaseDate());
         holder.releaseDateTextView.setText(date);

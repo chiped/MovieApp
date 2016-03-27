@@ -3,9 +3,11 @@ package com.chinmay.movieapp.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.chinmay.movieapp.utils.StringUtils;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -19,6 +21,8 @@ public class Movie implements Parcelable {
     private Date releaseDate;
     private double rating;
     private String posterPath;
+    private String overview;
+    private String displayTitle;
 
     public Movie() {}
 
@@ -36,6 +40,14 @@ public class Movie implements Parcelable {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getOverview() {
+        return overview;
+    }
+
+    public void setOverview(String overview) {
+        this.overview = overview;
     }
 
     public Date getReleaseDate() {
@@ -64,6 +76,7 @@ public class Movie implements Parcelable {
     public void setPosterPath(String posterPath) {
         this.posterPath = posterPath;
     }
+
     protected Movie(Parcel in) {
         id = in.readInt();
         title = in.readString();
@@ -71,6 +84,8 @@ public class Movie implements Parcelable {
         releaseDate = tmpReleaseDate != -1 ? new Date(tmpReleaseDate) : null;
         rating = in.readDouble();
         posterPath = in.readString();
+        overview = in.readString();
+        displayTitle = in.readString();
     }
 
     @Override
@@ -85,6 +100,8 @@ public class Movie implements Parcelable {
         dest.writeLong(releaseDate != null ? releaseDate.getTime() : -1L);
         dest.writeDouble(rating);
         dest.writeString(posterPath);
+        dest.writeString(overview);
+        dest.writeString(displayTitle);
     }
 
     @SuppressWarnings("unused")
@@ -99,4 +116,16 @@ public class Movie implements Parcelable {
             return new Movie[size];
         }
     };
+
+    public String getDisplayTitle() {
+        if(releaseDate == null) {
+            return title;
+        } else if(displayTitle != null) {
+            return displayTitle;
+        }
+        return new StringBuffer(title)
+                .append(StringUtils.BLANK_SPACE)
+                .append(new SimpleDateFormat("(yyyy)").format(releaseDate))
+                .toString();
+    }
 }

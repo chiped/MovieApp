@@ -16,6 +16,18 @@ public class HttpUtils {
         return getPosterUrl(posterPath, Constants.LARGE);
     }
 
+    public static String get780Url(String posterPath) {
+        return getPosterUrl(posterPath, Constants.IMAGE_780);
+    }
+
+    public static String get300Url(String posterPath) {
+        return getPosterUrl(posterPath, Constants.IMAGE_300);
+    }
+
+    public static String getProfilePhotoUrl(String profilePath) {
+        return getPosterUrl(profilePath, Constants.IMAGE_PROFILE);
+    }
+
     @Nullable
     private static String getPosterUrl(String posterPath, String type) {
         if(!StringUtils.empty(posterPath)) {

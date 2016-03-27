@@ -7,4 +7,7 @@
     <color name="background_color">#cccccc</color>
     <color name="primaryTextColor">#888888</color>
     <color name="lightTextColor">#acacac</color>
+    <color name="gray">#888888</color>
+    <color name="lightgray">#acacac</color>
+    <color name="gray_translucent">#7facacac</color>
 </resources>

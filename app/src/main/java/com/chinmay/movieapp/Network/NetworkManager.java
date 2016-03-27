@@ -1,6 +1,9 @@
 package com.chinmay.movieapp.network;
 
 import com.chinmay.movieapp.Constants;
+import com.chinmay.movieapp.model.Cast;
+import com.chinmay.movieapp.model.ImageUrlResult;
+import com.chinmay.movieapp.model.MovieDetail;
 import com.chinmay.movieapp.model.MovieListResult;
 import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.Interceptor;
@@ -49,5 +52,23 @@ public class NetworkManager {
         Call<MovieListResult> call = service.getMovieList(name);
         call.enqueue(callback);
         return  0;
+    }
+
+    public int getImageUrls(int id, Callback<ImageUrlResult> callback) {
+        Call<ImageUrlResult> call = service.getImageUrls(id);
+        call.enqueue(callback);
+        return 0;
+    }
+
+    public int getCredits(int id, Callback<Cast.CreditsResponse> callback) {
+        Call<Cast.CreditsResponse> call = service.getCredits(id);
+        call.enqueue(callback);
+        return 0;
+    }
+
+    public int getMovieDetail(int id, Callback<MovieDetail> callback) {
+        Call<MovieDetail> call = service.getMovieDetails(id);
+        call.enqueue(callback);
+        return 0;
     }
 }

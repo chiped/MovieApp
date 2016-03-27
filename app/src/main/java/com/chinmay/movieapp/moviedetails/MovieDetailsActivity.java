@@ -32,7 +32,8 @@ public class MovieDetailsActivity extends AppCompatActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_detail);
 
-        movie = getIntent().getParcelableExtra("MOVIE");
+        movie = (Movie) (savedInstanceState != null ? savedInstanceState.getParcelable(Constants.MOVIE_EXTRA) :
+                         getIntent().getParcelableExtra(Constants.MOVIE_EXTRA));
         configureView();
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.container_movie_detail, MovieDetailsFragment.getInstance(movie))
@@ -44,7 +45,7 @@ public class MovieDetailsActivity extends AppCompatActivity implements View.OnCl
         toolbar = (Toolbar) findViewById(R.id.movie_detail_toolbar);
         imageView = (ImageView) findViewById(R.id.movie_detail_image);
 
-        collapsingToolbar.setTitle(movie.getTitle());
+        collapsingToolbar.setTitle(movie.getDisplayTitle());
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -77,5 +78,11 @@ public class MovieDetailsActivity extends AppCompatActivity implements View.OnCl
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(Constants.MOVIE_EXTRA, movie);
     }
 }

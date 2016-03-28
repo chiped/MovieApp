@@ -43,9 +43,9 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.Recycler
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.detail_expandable_text_row, parent, false);
                 viewHolder = new ExpandableTextViewHolder(view);
                 break;
-            case HORIZONTAL_MOVIE_LIST: //TODO correct layout
-                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.detail_text_row, parent, false);
-                viewHolder = new TextViewHolder(view);
+            case HORIZONTAL_MOVIE_LIST:
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.detail_list_row, parent, false);
+                viewHolder = new MovieListAdapter(view);
                 break;
             case HORIZONTAL_PEOPLE_LIST:
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.detail_list_row, parent, false);

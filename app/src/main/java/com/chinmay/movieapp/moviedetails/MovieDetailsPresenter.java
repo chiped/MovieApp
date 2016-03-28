@@ -4,9 +4,11 @@ import com.chinmay.movieapp.model.Cast;
 import com.chinmay.movieapp.model.ImageUrlResult;
 import com.chinmay.movieapp.model.Movie;
 import com.chinmay.movieapp.model.MovieDetail;
+import com.chinmay.movieapp.model.MovieListResult;
 import com.chinmay.movieapp.moviedetails.model.DetailItem;
 import com.chinmay.movieapp.moviedetails.model.ExpandableTextItem;
 import com.chinmay.movieapp.moviedetails.model.HorizontalImageListItem;
+import com.chinmay.movieapp.moviedetails.model.HorizontalMovieListItem;
 import com.chinmay.movieapp.moviedetails.model.HorizontalPeopleListItem;
 import com.chinmay.movieapp.moviedetails.model.TextItem;
 import com.chinmay.movieapp.network.NetworkManager;
@@ -26,6 +28,7 @@ import retrofit.Retrofit;
 public class MovieDetailsPresenter {
 
     public Movie movie;
+    public MovieDetail movieDetail;
     public List<DetailItem> list = new ArrayList<>();
     private IMovieDetailsView movieDetailsView;
 
@@ -37,9 +40,9 @@ public class MovieDetailsPresenter {
         NetworkManager.getInstance().getMovieDetail(movie.getId(), new Callback<MovieDetail>() {
             @Override
             public void onResponse(Response<MovieDetail> response, Retrofit retrofit) {
-                processResponse(response.body());
+                movieDetail = response.body();
+                processResponseBeforeLists();
                 movieDetailsView.refreshList();
-                loadImageUrls();
                 loadCredits();
             }
 
@@ -50,14 +53,15 @@ public class MovieDetailsPresenter {
         });
     }
 
-    private void loadImageUrls() {
-        NetworkManager.getInstance().getImageUrls(movie.getId(), new Callback<ImageUrlResult>() {
+    private void loadCredits() {
+        NetworkManager.getInstance().getCredits(movie.getId(), new Callback<Cast.CreditsResponse>() {
 
             @Override
-            public void onResponse(Response<ImageUrlResult> response, Retrofit retrofit) {
-                if(!Utils.isEmptyOrNull(response.body().getBackdrops())) {
-                    list.add(new HorizontalImageListItem("Image(s):", response.body().getBackdrops()));
+            public void onResponse(Response<Cast.CreditsResponse> response, Retrofit retrofit) {
+                if (!Utils.isEmptyOrNull(response.body().cast)) {
+                    list.add(new HorizontalPeopleListItem("Cast:", response.body().cast));
                     movieDetailsView.refreshList();
+                    loadImageUrls();
                 }
             }
 
@@ -67,13 +71,16 @@ public class MovieDetailsPresenter {
         });
     }
 
-    private void loadCredits() {
-        NetworkManager.getInstance().getCredits(movie.getId(), new Callback<Cast.CreditsResponse>() {
+    private void loadImageUrls() {
+        NetworkManager.getInstance().getImageUrls(movie.getId(), new Callback<ImageUrlResult>() {
 
             @Override
-            public void onResponse(Response<Cast.CreditsResponse> response, Retrofit retrofit) {
-                list.add(new HorizontalPeopleListItem("Cast:", response.body().cast));
-                movieDetailsView.refreshList();
+            public void onResponse(Response<ImageUrlResult> response, Retrofit retrofit) {
+                if (!Utils.isEmptyOrNull(response.body().getBackdrops())) {
+                    list.add(new HorizontalImageListItem("Image(s):", response.body().getBackdrops()));
+                    movieDetailsView.refreshList();
+                    loadSimilarMovies();
+                }
             }
 
             @Override
@@ -82,7 +89,25 @@ public class MovieDetailsPresenter {
         });
     }
 
-    private void processResponse(MovieDetail movieDetail) {
+    private void loadSimilarMovies() {
+        NetworkManager.getInstance().getSimilarMovies(movie.getId(), new Callback<MovieListResult>() {
+
+            @Override
+            public void onResponse(Response<MovieListResult> response, Retrofit retrofit) {
+                if (!Utils.isEmptyOrNull(response.body().getResults())) {
+                    list.add(new HorizontalMovieListItem("Similar:", response.body().getResults()));
+                    movieDetailsView.refreshList();
+                    processResponseAfterLists();
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+            }
+        });
+    }
+
+    private void processResponseBeforeLists() {
         if(!Utils.isEmptyOrNull(movieDetail.getGenres())) {
             list.add(new TextItem("Genre(s):", StringUtils.asStringSeparated(movieDetail.getGenres(), ", ")));
         }
@@ -102,7 +127,9 @@ public class MovieDetailsPresenter {
         if(!StringUtils.empty(movieDetail.getOverview())) {
             list.add(new ExpandableTextItem("Overview:", movieDetail.getOverview()));
         }
+    }
 
+    private void processResponseAfterLists() {
         if(movieDetail.getBudget() != 0) {
             list.add(new TextItem("Budget:", String.format("$%.0f", movieDetail.getBudget())));
         }

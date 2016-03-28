@@ -27,7 +27,7 @@ import retrofit.Retrofit;
 /**
  * Created by ChiP on 1/6/2016.
  */
-public class MovieListFragment extends Fragment implements MovieListAdapter.MovieClickListener {
+public class MovieListFragment extends Fragment implements MovieAdapter.MovieClickListener {
 
     private int selectedPosition;
     private List<Movie> movieList;
@@ -42,7 +42,7 @@ public class MovieListFragment extends Fragment implements MovieListAdapter.Movi
         recyclerView = (RecyclerView) view.findViewById(R.id.movie_list_recylerview);
         layoutManager = new GridLayoutManager(getActivity(), getResources().getInteger(R.integer.movie_list_columns));
         recyclerView.setLayoutManager(layoutManager);
-        MovieListAdapter adapter = new MovieListAdapter(getActivity(), movieList);
+        MovieAdapter adapter = new MovieAdapter(getActivity(), movieList, R.layout.movie_list_row);
         recyclerView.setAdapter(adapter);
         adapter.setClickListener(this);
 

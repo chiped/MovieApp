@@ -1,6 +1,7 @@
 package com.chinmay.movieapp.main;
 
 import android.content.Context;
+import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
@@ -19,21 +20,23 @@ import java.util.List;
 /**
  * Created by ChiP on 1/9/2016.
  */
-public class MovieListAdapter extends RecyclerView.Adapter {
+public class MovieAdapter extends RecyclerView.Adapter {
 
     private final Context context;
+    @LayoutRes private final int rowLayout;
     private MovieClickListener clickListener;
     private List<Movie> movieList;
 
-    public MovieListAdapter(Context context, List<Movie> dataset) {
+    public MovieAdapter(Context context, List<Movie> dataset, @LayoutRes int rowLayout) {
         this.context = context;
         this.movieList = dataset;
+        this.rowLayout = rowLayout;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.movie_list_row, parent, false);
+                .inflate(rowLayout, parent, false);
         MovieRowViewHolder vh = new MovieRowViewHolder(v);
         return vh;
     }

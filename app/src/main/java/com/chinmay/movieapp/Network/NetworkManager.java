@@ -71,4 +71,10 @@ public class NetworkManager {
         call.enqueue(callback);
         return 0;
     }
+
+    public int getSimilarMovies(int id, Callback<MovieListResult> callback) {
+        Call<MovieListResult> call = service.getSimilarMovies(id);
+        call.enqueue(callback);
+        return  0;
+    }
 }

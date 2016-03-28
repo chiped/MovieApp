@@ -25,4 +25,7 @@ public interface TMDBService {
 
     @GET("movie/{id}")
     Call<MovieDetail> getMovieDetails(@Path("id") int id);
+
+    @GET("movie/{id}/similar")
+    Call<MovieListResult> getSimilarMovies(@Path("id") int id);
 }

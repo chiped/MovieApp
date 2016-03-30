@@ -2,9 +2,11 @@ package com.chinmay.movieapp.network;
 
 import com.chinmay.movieapp.Constants;
 import com.chinmay.movieapp.model.Cast;
+import com.chinmay.movieapp.model.Genre;
 import com.chinmay.movieapp.model.ImageUrlResult;
 import com.chinmay.movieapp.model.MovieDetail;
 import com.chinmay.movieapp.model.MovieListResult;
+import com.chinmay.movieapp.utils.Func1;
 import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.Interceptor;
 import com.squareup.okhttp.Request;
@@ -76,5 +78,44 @@ public class NetworkManager {
         Call<MovieListResult> call = service.getSimilarMovies(id);
         call.enqueue(callback);
         return  0;
+    }
+
+    public int getMovieGenres(Callback<Genre.GenreList> callback) {
+        Call<Genre.GenreList> call = service.getMovieGenres();
+        call.enqueue(callback);
+        return  0;
+    }
+
+    public int getTVGenres(Callback<Genre.GenreList> callback) {
+        Call<Genre.GenreList> call = service.getTVGenres();
+        call.enqueue(callback);
+        return  0;
+    }
+
+    public void getGenres(final Func1<Genre.ComboGenreResponse> callback) {
+        getMovieGenres(new Callback<Genre.GenreList>() {
+            @Override
+            public void onResponse(final retrofit.Response<Genre.GenreList> movieResponse, Retrofit retrofit) {
+                getTVGenres(new Callback<Genre.GenreList>() {
+                    @Override
+                    public void onResponse(retrofit.Response<Genre.GenreList> tvResponse, Retrofit retrofit) {
+                        Genre.ComboGenreResponse comboGenreResponse = new Genre.ComboGenreResponse();
+                        comboGenreResponse.movieGenres = movieResponse.body().genres;
+                        comboGenreResponse.tvGenres = tvResponse.body().genres;
+                        callback.execute(comboGenreResponse);
+                    }
+
+                    @Override
+                    public void onFailure(Throwable t) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+
+            }
+        });
     }
 }

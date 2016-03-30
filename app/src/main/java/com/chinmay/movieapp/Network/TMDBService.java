@@ -1,6 +1,7 @@
 package com.chinmay.movieapp.network;
 
 import com.chinmay.movieapp.model.Cast;
+import com.chinmay.movieapp.model.Genre;
 import com.chinmay.movieapp.model.ImageUrlResult;
 import com.chinmay.movieapp.model.MovieDetail;
 import com.chinmay.movieapp.model.MovieListResult;
@@ -28,4 +29,10 @@ public interface TMDBService {
 
     @GET("movie/{id}/similar")
     Call<MovieListResult> getSimilarMovies(@Path("id") int id);
+
+    @GET("genre/movie/list")
+    Call<Genre.GenreList> getMovieGenres();
+
+    @GET("genre/tv/list")
+    Call<Genre.GenreList> getTVGenres();
 }

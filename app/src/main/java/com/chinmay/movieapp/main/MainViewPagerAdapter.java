@@ -6,12 +6,14 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.chinmay.movieapp.R;
+import com.chinmay.movieapp.categories.CategoriesFragment;
 
 /**
  * Created by ChiP on 1/6/2016.
  */
 public class MainViewPagerAdapter extends FragmentPagerAdapter {
 
+    private static final int CATEGORIES_POSITION = 1;
     private String[] tabTitles;
 
     public MainViewPagerAdapter(Context context, FragmentManager fm) {
@@ -21,6 +23,9 @@ public class MainViewPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
+        if(position == CATEGORIES_POSITION) {
+            return new CategoriesFragment();
+        }
         return MovieListFragment.newInstance(position);
     }
 

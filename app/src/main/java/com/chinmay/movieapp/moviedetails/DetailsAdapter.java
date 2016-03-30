@@ -1,19 +1,13 @@
 package com.chinmay.movieapp.moviedetails;
 
 import android.content.Context;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.chinmay.movieapp.R;
 import com.chinmay.movieapp.moviedetails.model.DetailItem;
-import com.chinmay.movieapp.moviedetails.model.ExpandableTextItem;
-import com.chinmay.movieapp.moviedetails.model.HorizontalMovieListItem;
-import com.chinmay.movieapp.moviedetails.model.TextItem;
-import com.ms.square.android.expandabletextview.ExpandableTextView;
 
 import java.util.List;
 

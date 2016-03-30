@@ -32,7 +32,7 @@ public class MovieListFragment extends Fragment implements MovieAdapter.MovieCli
     private int selectedPosition;
     private List<Movie> movieList;
     private RecyclerView recyclerView;
-    private LinearLayoutManager layoutManager;
+    private GridLayoutManager layoutManager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

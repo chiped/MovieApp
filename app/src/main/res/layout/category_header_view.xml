@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/padding_medium"
             android:textColor="@color/primary_dark"
-            android:textSize="@dimen/text_size_medium"
+            android:textSize="@dimen/text_size_ml"
             tools:text="Horror" />
 
         <View

@@ -48,38 +48,38 @@ public class CategoriesPresenter {
 
     private void processMultiColumnItems(List<Genre> movieGenres, List<Genre> tvGenres) {
         if (!Utils.isEmptyOrNull(movieGenres)) {
-            genres.add(new GenreWrapper("Movies", GenreWrapper.ItemType.HEADER));
+            genres.add(new GenreWrapper.Builder().setText("Movies").build());
         }
         if (!Utils.isEmptyOrNull(tvGenres)) {
-            genres.add(new GenreWrapper("TV", GenreWrapper.ItemType.HEADER));
+            genres.add(new GenreWrapper.Builder().setText("TV").build());
         }
         for(int i=0; i<movieGenres.size() || i<tvGenres.size(); i++) {
             if(i<movieGenres.size()) {
-                genres.add(new GenreWrapper(movieGenres.get(i).getName(), GenreWrapper.ItemType.ITEM));
+                genres.add(new GenreWrapper.Builder().setGenre(movieGenres.get(i)).setGenreType(GenreWrapper.GenreType.MOVIE).build());
             } else {
-                genres.add(new GenreWrapper(StringUtils.EMPTY_STRING, GenreWrapper.ItemType.EMPTY));
+                genres.add(new GenreWrapper.Builder().build());
             }
 
             if(i<tvGenres.size()) {
-                genres.add(new GenreWrapper(tvGenres.get(i).getName(), GenreWrapper.ItemType.ITEM));
+                genres.add(new GenreWrapper.Builder().setGenre(tvGenres.get(i)).setGenreType(GenreWrapper.GenreType.MOVIE).build());
             } else {
-                genres.add(new GenreWrapper(StringUtils.EMPTY_STRING, GenreWrapper.ItemType.EMPTY));
+                genres.add(new GenreWrapper.Builder().build());
             }
         }
     }
 
     private void processSingleColumnItems(List<Genre> movieGenres, List<Genre> tvGenres) {
         if (!Utils.isEmptyOrNull(movieGenres)) {
-            genres.add(new GenreWrapper("Movies", GenreWrapper.ItemType.HEADER));
+            genres.add(new GenreWrapper.Builder().setText("Movies").build());
             for (Genre genre : movieGenres) {
-                genres.add(new GenreWrapper(genre.getName(), GenreWrapper.ItemType.ITEM));
+                genres.add(new GenreWrapper.Builder().setGenre(genre).setGenreType(GenreWrapper.GenreType.MOVIE).build());
             }
         }
 
         if (!Utils.isEmptyOrNull(tvGenres)) {
-            genres.add(new GenreWrapper("TV", GenreWrapper.ItemType.HEADER));
+            genres.add(new GenreWrapper.Builder().setText("TV").build());
             for (Genre genre : tvGenres) {
-                genres.add(new GenreWrapper(genre.getName(), GenreWrapper.ItemType.ITEM));
+                genres.add(new GenreWrapper.Builder().setGenre(genre).setGenreType(GenreWrapper.GenreType.TV).build());
             }
         }
     }

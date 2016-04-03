@@ -35,4 +35,7 @@ public interface TMDBService {
 
     @GET("genre/tv/list")
     Call<Genre.GenreList> getTVGenres();
+
+    @GET("genre/{id}/movies")
+    Call<MovieListResult> getMoviesForGenre(@Path("id") int id);
 }

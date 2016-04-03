@@ -34,6 +34,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".moviedetails.MovieDetailsActivity" />
         </activity>
+        <activity android:name=".movielist.MovieListActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

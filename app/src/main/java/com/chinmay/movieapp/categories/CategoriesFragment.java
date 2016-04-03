@@ -1,5 +1,6 @@
 package com.chinmay.movieapp.categories;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,11 +11,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.chinmay.movieapp.R;
+import com.chinmay.movieapp.categories.model.GenreWrapper;
+import com.chinmay.movieapp.movielist.MovieListActivity;
+
+import static com.chinmay.movieapp.movielist.category.CategoryMovieListFragment.GENRE_WRAPPER;
 
 /**
  * Created by ChiP on 3/28/2016.
  */
-public class CategoriesFragment extends Fragment implements CategoriesPresenter.CategoriesView {
+public class CategoriesFragment extends Fragment implements CategoriesPresenter.CategoriesView, CategoriesAdapter.CategoryClickListener {
 
     private RecyclerView recyclerView;
     private CategoriesPresenter presenter;
@@ -33,6 +38,7 @@ public class CategoriesFragment extends Fragment implements CategoriesPresenter.
         recyclerView.setLayoutManager(layoutManager);
 
         adapter = new CategoriesAdapter(getActivity(), presenter.genres);
+        adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
 
         presenter.onCreate();
@@ -42,5 +48,12 @@ public class CategoriesFragment extends Fragment implements CategoriesPresenter.
     @Override
     public void refreshList() {
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onClick(GenreWrapper genreWrapper) {
+        Intent intent = new Intent(getContext(), MovieListActivity.class);
+        intent.putExtra(GENRE_WRAPPER, genreWrapper);
+        startActivity(intent);
     }
 }

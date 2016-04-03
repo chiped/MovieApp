@@ -118,4 +118,11 @@ public class NetworkManager {
             }
         });
     }
+
+    public int getMoviesForGenre(int id, Callback<MovieListResult> callback) {
+        Call<MovieListResult> call = service.getMoviesForGenre(id);
+        call.enqueue(callback);
+        return  0;
+    }
+
 }

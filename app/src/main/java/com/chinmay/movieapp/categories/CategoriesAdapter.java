@@ -15,9 +15,10 @@ import java.util.List;
 /**
  * Created by ChiP on 3/28/2016.
  */
-public class CategoriesAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
+public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.CategoryViewHolder> {
     private final Context context;
     private final List<GenreWrapper> dataset;
+    private CategoryClickListener clickListener;
 
     public CategoriesAdapter(Context context, List<GenreWrapper> dataset) {
         this.context = context;
@@ -51,23 +52,49 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoryViewHolder> 
     public int getItemViewType(int position) {
         return dataset.get(position).getType().getValue();
     }
-}
 
-class CategoryViewHolder extends RecyclerView.ViewHolder {
-
-    private TextView textView;
-
-    public CategoryViewHolder(View itemView) {
-        super(itemView);
-        textView = (TextView) itemView.findViewById(R.id.text);
+    public void setClickListener(CategoryClickListener clickListener) {
+        this.clickListener = clickListener;
     }
 
-    public void bindView(GenreWrapper genreWrapper) {
-        if (genreWrapper.getType() != GenreWrapper.ItemType.EMPTY) {
-            textView.setVisibility(View.VISIBLE);
-            textView.setText(genreWrapper.getText());
-        } else {
-            textView.setVisibility(View.INVISIBLE);
+    class CategoryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+        private TextView textView;
+
+        public CategoryViewHolder(View itemView) {
+            super(itemView);
+            textView = (TextView) itemView.findViewById(R.id.text);
         }
+
+        public void bindView(GenreWrapper genreWrapper) {
+            switch (genreWrapper.getType()) {
+                case HEADER:
+                    textView.setVisibility(View.VISIBLE);
+                    textView.setText(genreWrapper.getText());
+                    itemView.setEnabled(false);
+                    break;
+                case ITEM:
+                    textView.setVisibility(View.VISIBLE);
+                    textView.setText(genreWrapper.getGenre().getName());
+                    itemView.setEnabled(true);
+                    itemView.setOnClickListener(this);
+                    break;
+                case EMPTY:
+                    textView.setVisibility(View.INVISIBLE);
+                    itemView.setEnabled(false);
+                    break;
+            }
+        }
+
+        @Override
+        public void onClick(View view) {
+            if(clickListener != null) {
+                clickListener.onClick(dataset.get(getLayoutPosition()));
+            }
+        }
+    }
+
+    public interface CategoryClickListener {
+        void onClick(GenreWrapper genreWrapper);
     }
 }

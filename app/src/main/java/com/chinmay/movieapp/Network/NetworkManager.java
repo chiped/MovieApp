@@ -125,4 +125,10 @@ public class NetworkManager {
         return  0;
     }
 
+    public int getTVForGenre(int id, Callback<MovieListResult> callback) {
+        Call<MovieListResult> call = service.getTVForGenre(id);
+        call.enqueue(callback);
+        return 0;
+    }
+
 }

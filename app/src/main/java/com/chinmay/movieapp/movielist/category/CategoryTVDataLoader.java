@@ -14,23 +14,22 @@ import retrofit.Response;
 import retrofit.Retrofit;
 
 /**
- * Created by ChiP on 4/2/2016.
+ * Created by ChiP on 4/3/2016.
  */
-public class CategoryMovieDataLoader implements IFragmentDataLoader {
-
+public class CategoryTVDataLoader implements IFragmentDataLoader {
     private final GenreWrapper genreWrapper;
 
-    public CategoryMovieDataLoader(GenreWrapper genreWrapper) {
+    public CategoryTVDataLoader(GenreWrapper genreWrapper) {
         this.genreWrapper = genreWrapper;
     }
 
     @Override
     public void process(final List<RecyclerViewItemWrapper> list, final LoaderCallBack callBack) {
-        NetworkManager.getInstance().getMoviesForGenre(genreWrapper.getGenre().getId(), new Callback<MovieListResult>() {
+        NetworkManager.getInstance().getTVForGenre(genreWrapper.getGenre().getId(), new Callback<MovieListResult>() {
             @Override
             public void onResponse(Response<MovieListResult> response, Retrofit retrofit) {
                 for (Movie movie : response.body().getResults()) {
-                    list.add(new RecyclerViewItemWrapper(RecyclerViewItemWrapper.MOVIE, movie));
+                    list.add(new RecyclerViewItemWrapper(RecyclerViewItemWrapper.TV, movie));
                     callBack.onFinish();
                 }
             }

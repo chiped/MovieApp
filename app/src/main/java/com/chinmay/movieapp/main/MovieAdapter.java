@@ -47,8 +47,13 @@ public class MovieAdapter extends RecyclerView.Adapter {
         Movie movie = movieList.get(position);
         holder.titleTextView.setText(movie.getDisplayTitle());
         holder.ratingTextView.setText(movie.getRating()>0?String.format("%.1f", movie.getRating()):"");
-        CharSequence date = DateFormat.format("dd MMM yyyy", movie.getReleaseDate());
-        holder.releaseDateTextView.setText(date);
+        if(movie.getReleaseDate() != null) {
+            CharSequence date = DateFormat.format("dd MMM yyyy", movie.getReleaseDate());
+            holder.releaseDateTextView.setText(date);
+            holder.releaseDateTextView.setVisibility(View.VISIBLE);
+        } else {
+            holder.releaseDateTextView.setVisibility(View.INVISIBLE);
+        }
         Picasso.with(context)
                 .load(HttpUtils.getSmallUrl(movie.getPosterPath()))
                 .error(R.drawable.no_poster)

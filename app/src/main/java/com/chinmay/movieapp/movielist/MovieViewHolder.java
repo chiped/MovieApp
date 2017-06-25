@@ -36,8 +36,13 @@ public class MovieViewHolder extends BaseRecyclerViewHolder<Movie> {
     protected void bind(final int position, final Movie movie, final IViewClickListener clickListener) {
         titleTextView.setText(movie.getDisplayTitle());
         ratingTextView.setText(movie.getRating()>0?String.format("%.1f", movie.getRating()):"");
-        CharSequence date = DateFormat.format("dd MMM yyyy", movie.getReleaseDate());
-        releaseDateTextView.setText(date);
+        if(movie.getReleaseDate() != null) {
+            CharSequence date = DateFormat.format("dd MMM yyyy", movie.getReleaseDate());
+            releaseDateTextView.setText(date);
+            releaseDateTextView.setVisibility(View.VISIBLE);
+        } else {
+            releaseDateTextView.setVisibility(View.INVISIBLE);
+        }
         Picasso.with(itemView.getContext())
                 .load(HttpUtils.getSmallUrl(movie.getPosterPath()))
                 .error(R.drawable.no_poster)

@@ -1,10 +1,12 @@
 package com.chinmay.movieapp.baserecyclerview;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.WindowManager;
 
 import com.chinmay.movieapp.R;
 import com.chinmay.movieapp.utils.StringUtils;
@@ -23,6 +25,11 @@ public abstract class BaseRecyclerViewActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(getActivityTitle());
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            getWindow().setStatusBarColor(getResources().getColor(R.color.accent));
+        }
 
         getSupportFragmentManager().beginTransaction().replace(R.id.frame, getFragment()).commit();
     }

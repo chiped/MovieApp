@@ -5,6 +5,7 @@ package com.chinmay.movieapp.baserecyclerview;
  */
 public class RecyclerViewItemWrapper<I> {
     public static final int MOVIE = 0;
+    public static final int TV = 1;
 
     private int viewType;
     private I item;

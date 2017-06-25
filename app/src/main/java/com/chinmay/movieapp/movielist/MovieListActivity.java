@@ -31,6 +31,6 @@ public class MovieListActivity extends BaseRecyclerViewActivity {
 
     @Override
     protected String getActivityTitle() {
-        return genreWrapper.getGenre().getName();
+        return genreWrapper.getGenre().getName() + " (" + genreWrapper.getGenreType().name() + ")";
     }
 }

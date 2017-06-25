@@ -9,6 +9,7 @@ import com.chinmay.movieapp.model.MovieListResult;
 import retrofit.Call;
 import retrofit.http.GET;
 import retrofit.http.Path;
+import retrofit.http.Query;
 
 /**
  * Created by ChiP on 1/6/2016.
@@ -38,4 +39,7 @@ public interface TMDBService {
 
     @GET("genre/{id}/movies")
     Call<MovieListResult> getMoviesForGenre(@Path("id") int id);
+
+    @GET("discover/tv")
+    Call<MovieListResult> getTVForGenre(@Query("with_genres") int id);
 }

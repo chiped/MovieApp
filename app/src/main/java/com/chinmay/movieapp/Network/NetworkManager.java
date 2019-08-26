@@ -1,5 +1,6 @@
 package com.chinmay.movieapp.network;
 
+import com.chinmay.movieapp.BuildConfig;
 import com.chinmay.movieapp.Constants;
 import com.chinmay.movieapp.model.Cast;
 import com.chinmay.movieapp.model.Genre;
@@ -42,7 +43,7 @@ public class NetworkManager {
             public Response intercept(Chain chain) throws IOException {
                 HttpUrl url = chain.request().httpUrl()
                         .newBuilder()
-                        .addQueryParameter("api_key", Constants.API_KEY)
+                        .addQueryParameter("api_key", BuildConfig.TMDB_API_KEY)
                         .build();
                 Request request = chain.request().newBuilder().url(url).build();
                 return chain.proceed(request);

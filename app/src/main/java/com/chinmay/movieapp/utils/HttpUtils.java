@@ -2,6 +2,7 @@ package com.chinmay.movieapp.utils;
 
 import android.support.annotation.Nullable;
 
+import com.chinmay.movieapp.BuildConfig;
 import com.chinmay.movieapp.Constants;
 
 /**
@@ -35,7 +36,7 @@ public class HttpUtils {
                     .append(type)
                     .append(posterPath)
                     .append("?api_key=")
-                    .append(Constants.API_KEY)
+                    .append(BuildConfig.TMDB_API_KEY)
                     .toString();
         }
         return null;

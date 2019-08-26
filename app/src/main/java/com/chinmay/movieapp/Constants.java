@@ -5,7 +5,6 @@ package com.chinmay.movieapp;
  */
 public class Constants {
 
-    final public static String API_KEY = "<Your api key here>";
     final public static String BASE_URL = "http://api.themoviedb.org/3/movie";
     final public static String IMAGE_BASE_URL = "http://image.tmdb.org/t/p";
     final public static String SMALL= "/w92";

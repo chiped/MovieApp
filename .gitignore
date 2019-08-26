@@ -3,3 +3,5 @@ MovieApp.iml
 build/
 app/app.iml
 .gradle/
+gradle.properties
+local.properties

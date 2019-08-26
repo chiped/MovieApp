@@ -8,6 +8,7 @@ android {
         applicationId "com.chinmay.movieapp"
         minSdkVersion 15
         targetSdkVersion 18
+        buildConfigField("String", "TMDB_API_KEY", tmdb_api_key)
     }
 
     buildTypes {

@@ -31,11 +31,11 @@ public class ImageActivity extends AppCompatActivity {
         String url = getIntent().getStringExtra("IMAGE_URL");
         String placeholder = getIntent().getStringExtra("PLACEHOLDER_URL");
 
-        Picasso.with(this)
+        Picasso.get()
                 .load(placeholder)
                 .into(imageView);
 
-        Picasso.with(this)
+        Picasso.get()
                 .load(url)
                 .placeholder(imageView.getDrawable())
                 .into(imageView);

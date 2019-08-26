@@ -38,7 +38,7 @@ public class DetailsGalleryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         GalleryViewHolder holder = (GalleryViewHolder) viewHolder;
         String url = HttpUtils.get300Url(dataset.get(position));
-        Picasso.with(context)
+        Picasso.get()
                 .load(url)
                 .into(holder.imageView);
     }

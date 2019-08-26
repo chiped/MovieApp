@@ -43,7 +43,7 @@ public class DetailsCastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         holder.name.setText(cast.getName());
         holder.character.setText(cast.getCharacter());
         String url = HttpUtils.getProfilePhotoUrl(cast.getProfilePath());
-        Picasso.with(context)
+        Picasso.get()
                 .load(url)
                 .into(holder.imageView);
     }

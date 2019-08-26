@@ -38,7 +38,7 @@ public class MovieViewHolder extends BaseRecyclerViewHolder<Movie> {
         ratingTextView.setText(movie.getRating()>0?String.format("%.1f", movie.getRating()):"");
         CharSequence date = DateFormat.format("dd MMM yyyy", movie.getReleaseDate());
         releaseDateTextView.setText(date);
-        Picasso.with(itemView.getContext())
+        Picasso.get()
                 .load(HttpUtils.getSmallUrl(movie.getPosterPath()))
                 .error(R.drawable.no_poster)
                 .placeholder(R.drawable.no_poster)

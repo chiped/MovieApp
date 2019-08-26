@@ -49,9 +49,9 @@ public class MovieDetailsActivity extends AppCompatActivity implements View.OnCl
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Picasso.with(this).load(HttpUtils.getSmallUrl(movie.getPosterPath()))
+        Picasso.get().load(HttpUtils.getSmallUrl(movie.getPosterPath()))
                 .into(imageView);
-        Picasso.with(this).load(HttpUtils.getLargeUrl(movie.getPosterPath()))
+        Picasso.get().load(HttpUtils.getLargeUrl(movie.getPosterPath()))
                 .placeholder(imageView.getDrawable())
                 .into(imageView);
         imageView.setOnClickListener(this);

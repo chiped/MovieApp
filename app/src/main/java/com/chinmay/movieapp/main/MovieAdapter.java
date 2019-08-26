@@ -49,7 +49,7 @@ public class MovieAdapter extends RecyclerView.Adapter {
         holder.ratingTextView.setText(movie.getRating()>0?String.format("%.1f", movie.getRating()):"");
         CharSequence date = DateFormat.format("dd MMM yyyy", movie.getReleaseDate());
         holder.releaseDateTextView.setText(date);
-        Picasso.with(context)
+        Picasso.get()
                 .load(HttpUtils.getSmallUrl(movie.getPosterPath()))
                 .error(R.drawable.no_poster)
                 .placeholder(R.drawable.no_poster)

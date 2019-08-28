@@ -37,7 +37,7 @@ public class NetworkManager {
         return instance;
     }
 
-    NetworkManager() {
+    private NetworkManager() {
         restAdapter.client().interceptors().add(new Interceptor() {
             @Override
             public Response intercept(Chain chain) throws IOException {
@@ -51,46 +51,39 @@ public class NetworkManager {
         });
     }
 
-    public int getMovieList(String name, Callback<MovieListResult> callback) {
+    public void getMovieList(String name, Callback<MovieListResult> callback) {
         Call<MovieListResult> call = service.getMovieList(name);
         call.enqueue(callback);
-        return  0;
     }
 
-    public int getImageUrls(int id, Callback<ImageUrlResult> callback) {
+    public void getImageUrls(int id, Callback<ImageUrlResult> callback) {
         Call<ImageUrlResult> call = service.getImageUrls(id);
         call.enqueue(callback);
-        return 0;
     }
 
-    public int getCredits(int id, Callback<Cast.CreditsResponse> callback) {
+    public void getCredits(int id, Callback<Cast.CreditsResponse> callback) {
         Call<Cast.CreditsResponse> call = service.getCredits(id);
         call.enqueue(callback);
-        return 0;
     }
 
-    public int getMovieDetail(int id, Callback<MovieDetail> callback) {
+    public void getMovieDetail(int id, Callback<MovieDetail> callback) {
         Call<MovieDetail> call = service.getMovieDetails(id);
         call.enqueue(callback);
-        return 0;
     }
 
-    public int getSimilarMovies(int id, Callback<MovieListResult> callback) {
+    public void getSimilarMovies(int id, Callback<MovieListResult> callback) {
         Call<MovieListResult> call = service.getSimilarMovies(id);
         call.enqueue(callback);
-        return  0;
     }
 
-    public int getMovieGenres(Callback<Genre.GenreList> callback) {
+    private void getMovieGenres(Callback<Genre.GenreList> callback) {
         Call<Genre.GenreList> call = service.getMovieGenres();
         call.enqueue(callback);
-        return  0;
     }
 
-    public int getTVGenres(Callback<Genre.GenreList> callback) {
+    private void getTVGenres(Callback<Genre.GenreList> callback) {
         Call<Genre.GenreList> call = service.getTVGenres();
         call.enqueue(callback);
-        return  0;
     }
 
     public void getGenres(final Func1<Genre.ComboGenreResponse> callback) {
@@ -120,10 +113,9 @@ public class NetworkManager {
         });
     }
 
-    public int getMoviesForGenre(int id, Callback<MovieListResult> callback) {
+    public void getMoviesForGenre(int id, Callback<MovieListResult> callback) {
         Call<MovieListResult> call = service.getMoviesForGenre(id);
         call.enqueue(callback);
-        return  0;
     }
 
 }

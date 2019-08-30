@@ -1,6 +1,6 @@
 package com.chinmay.movieapp.utils;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import com.chinmay.movieapp.BuildConfig;
 import com.chinmay.movieapp.Constants;

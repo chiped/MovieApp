@@ -3,7 +3,7 @@ package com.chinmay.movieapp.main;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.chinmay.movieapp.R;
 import com.chinmay.movieapp.categories.CategoriesFragment;
@@ -11,7 +11,7 @@ import com.chinmay.movieapp.categories.CategoriesFragment;
 /**
  * Created by ChiP on 1/6/2016.
  */
-public class MainViewPagerAdapter extends FragmentPagerAdapter {
+public class MainViewPagerAdapter extends FragmentStatePagerAdapter {
 
     private static final int CATEGORIES_POSITION = 1;
     private String[] tabTitles;
